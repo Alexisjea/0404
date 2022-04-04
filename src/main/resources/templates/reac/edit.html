@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+
+<form action="#"
+      enctype="multipart/form-data"
+      method="post"
+      th:action="@{/Coordinateur/traitementReac}"
+      th:name="reacupdate">
+
+    <input th:value="${id}" th:type="hidden" th:name="id">
+
+    <div class="mb-3">
+        <label  class="form-label">Lien reac</label>
+        <input class="form-control" th:name="lien" type="text"><br/>
+
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Duree</label>
+        <input class="form-control" th:name="duree" type="number"><br/>
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date debut</label>
+        <input class="form-control" th:name="dateDebut" type="date"><br/>
+    </div>
+<!--    <select class="form-select" aria-label="Default select example" name="activite">-->
+<!--        <option selected>Open this select menu</option>-->
+<!--        <option th:each="uneActivite :${activites}"-->
+<!--                th:text="${uneActivite.activitesTypes}"-->
+<!--                th:name="${uneActivite.id}"-->
+<!--                th:value="${uneActivite.id}">-->
+
+<!--        </option>-->
+<!--        <select/><br>-->
+
+        <button type="submit" class="btn btn-primary">Update Reac</button>
+</form>
+
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>

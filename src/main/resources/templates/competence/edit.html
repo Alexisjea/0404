@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+
+<form action="#"
+      enctype="multipart/form-data"
+      method="post"
+      th:action="@{/Coordinateur/updateCompetence}"
+      th:name="competenceupdate">
+
+    <input th:value="${id}" th:type="hidden" th:name="id">
+
+    <div class="mb-3">
+        <label  class="form-label">Nom compétence</label>
+        <input class="form-control" th:name="nom" type="text"><br/>
+
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Num compétence</label>
+        <input class="form-control" th:name="numFicheCompetence" type="number"><br/>
+
+    </div>
+    <select class="form-select" aria-label="Default select example" name="activite">
+        <option selected>Open this select menu</option>
+        <option th:each="uneActivite :${activites}"
+                th:text="${uneActivite.activitesTypes}"
+                th:name="${uneActivite.id}"
+                th:value="${uneActivite.id}">
+
+        </option>
+        <select/><br>
+
+    <button type="submit" class="btn btn-primary">Update Competence</button>
+</form>
+
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>
