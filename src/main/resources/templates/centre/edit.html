@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+<div class="container bg-light">
+    <form action="#"
+          enctype="multipart/form-data"
+          method="post"
+          th:action="@{/traitement}"
+          th:name="centre"
+          th:object="${sessionss}">
+
+        <input th:value="${id}" th:type="hidden" th:name="id">
+
+        <div class="mb-3">
+            <label  class="form-label">Nom centre</label>
+            <input class="form-control" th:name="nomCentre" type="text"><br/>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Adresse centre</label>
+            <input class="form-control" th:name="adresseCentre" type="text"><br/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cp</label>
+            <input class="form-control" th:name="codesPostal" type="text"><br/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ville</label>
+            <input class="form-control" th:name="ville" type="text"><br/>
+        </div>
+        <div class="col-2">
+            <!--        <select class="form-select" aria-label="Default select example"  >-->
+            <!--            <option  selected>Date de debut</option>-->
+            <!--            <option value="1"th:each="sessiongretas: ${sessions}" th:text="${sessiongretas.dateDebut}"></option>-->
+            <!--                    </select>-->
+
+
+
+<!--                    <select class="form-select" aria-label="Default select example"  >-->
+<!--                        <option  selected>Nom formation</option>-->
+<!--                        <option value="1"th:each="formationgretas: ${formations}" th:text="${}"></option>-->
+
+
+<!--                    </select>-->
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Centre</button>
+    </form>
+</div>
+
+
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>

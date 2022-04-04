@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header-nav"/>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4 class="display-4">Activite</h4>
+            <form action="#"
+                  enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/listactivites}"
+                  th:object="${activite}"
+                    name="activite">
+
+                <div class="mb-3">
+                    <label  class="form-label">Nom activite</label>
+                    <input class="form-control" th:field="*{activitesTypes}" type="text" th:name="activitesTypes"><br/>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Num ordre</label>
+                    <input class="form-control" th:field="*{numOrdre}" type="text" th:name="numOrdre"><br/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Reac</label>
+                    <input class="form-control" th:field="*{reac}" type="text" th:name="reac"><br/>
+                </div>
+
+                <select class="form-select" aria-label="Default select example"  >
+                    <option  selected>Date de debut</option>
+                    <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>
+
+
+                </select>
+                <select class="form-select" aria-label="Default select example"  >
+                    <option  selected>Date de debut</option>
+                    <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>
+
+
+                </select>
+
+
+                <button type="submit" class="btn btn-primary">Enregistrer Activité</button>
+            </form><br>
+
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th scope="col">Activité Id</th>
+                    <th scope="col">Type d'activité</th>
+                    <th scope="col">Num ordre</th>
+                    <th scope="col">Compétences</th>
+                    <th scope="col">Reac num</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="uneActivite: ${activites}">
+                    <td th:utext="${uneActivite.id}"></td>
+                    <td th:utext="${uneActivite.activitesTypes}"></td>
+                    <td th:utext="${uneActivite.numOrdre}"></td>
+                    <td><a href="#" th:href="@{'/show/'+${uneActivite.id}}" class="btn btn-primary">Detail</a>
+                        <a href="#" th:href="@{'/activites/edit/'+${uneActivite.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'/activites/supr/'+${uneActivite.id}}" class="btn btn-danger">Suprimmer</a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+            <hr/>
+
+            <select class="form-select" aria-label="Default select example"  >
+                <option  selected>Competences</option>
+                <option value="1"th:each="competences: ${competence}" th:text="${competences.nom}"></option>
+
+
+            </select>
+<!--            <select class="form-select" aria-label="Default select example"  >-->
+<!--                <option  selected>Num reac</option>-->
+<!--                <option value="1"th:each="unReac: ${reacs}" th:text="${unReac.id}"></option>-->
+
+
+<!--            </select>-->
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+
+<form action="#"
+      enctype="multipart/form-data"
+      method="post"
+      th:action="@{/traitementFormation}"
+      th:name="formation">
+
+    <input th:value="${id}" th:type="hidden" th:name="id">
+
+    <div class="mb-3">
+        <label  class="form-label">Nom centre</label>
+        <input class="form-control" th:name="typeFormation" type="text"><br/>
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+<!--    <div class="mb-3">-->
+<!--        <label class="form-label">Adresse centre</label>-->
+<!--        <input th:name="adresseCentre" type="text"><br/>-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--        <label class="form-label">Cp</label>-->
+<!--        <input th:name="codesPostal" type="text"><br/>-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--        <label class="form-label">Ville</label>-->
+<!--        <input th:name="ville" type="text"><br/>-->
+<!--    </div>-->
+    <!--    <div class="mb-3 form-check"> <option th:each="sessiongreta: ${sessions}"-->
+    <!--                                          th:value="${sessiongreta.id}"-->
+    <!--                                          th:text="${sessiongreta.id}+' '+${sessiongreta.id}"-->
+    <!--                                          th:selected="${sessiongreta.id} == *{centre.id}">-->
+    <!--        Prénom Nom-->
+    <!--    </option>-->
+    <!--    </div>-->
+    <button type="submit" class="btn btn-primary">Update Centre</button>
+</form>
+
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>

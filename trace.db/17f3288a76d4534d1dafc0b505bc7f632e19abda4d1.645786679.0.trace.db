@@ -1,0 +1,2 @@
+2022-02-25 21:18:14 jdbc: 
+/**/Connection conn0 = DriverManager.getConnection("jdbc:h2:file:./data/localdb;AUTO_SERVER=TRUE;TRACE_LEVEL_FILE=2;TRACE_LEVEL_SYSTEM_OUT=2;", "SA", "");

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header-nav"/>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4 class="display-4">Centres</h4>
+            <form action="#"
+                  enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/listcentres}"
+                  th:object="${centre}">
+                <div class="mb-3">
+                    <label  class="form-label">Nom centre</label>
+                    <input class="form-control" th:field="*{nomCentre}" type="text"><br/>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Adresse centre</label>
+                    <input class="form-control" th:field="*{adresseCentre}" type="text"><br/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cp</label>
+                    <input class="form-control" th:field="*{codesPostal}" type="text"><br/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ville</label>
+                    <input class="form-control" th:field="*{ville}" type="text"><br/>
+                </div>
+                <div class="col-2">
+                    <select class="form-select" aria-label="Default select example"  >
+                        <option  selected>Date de debut</option>
+                        <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.dateDebut}"></option>
+
+
+                    </select><br/>
+                    <select class="form-select" aria-label="Default select example"  >
+                        <option  selected>Date de fin</option>
+                        <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.dateFin}"></option>
+
+
+                    </select><br/>
+                    <select class="form-select" aria-label="Default select example"  >
+                        <option  selected>Nom formation</option>
+                        <option value="1"th:each="formationgreta: ${formation}" th:text="${formationgreta.typeFormation}"></option>
+
+
+                    </select><br/>
+                    <!--        <select class="form-select" aria-label="Default select example"  >-->
+                    <!--            <option  selected>Open this select menu</option>-->
+                    <!--            <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.}"></option>-->
+
+
+                    <!--        </select>-->
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer Centre</button>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Centre Id</th>
+                    <th scope="col">Centre Nom</th>
+                    <th scope="col">Centre adresse</th>
+                    <th scope="col">Centre CP</th>
+                    <th scope="col">Centre ville</th>
+                    <th scope="col">Dates debut sessions</th>
+                    <th scope="col">Dates fin sessions</th>
+                    <th scope="col" >Formations</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="centre: ${centres}">
+                    <td><span th:utext="${centre.id}"></span></td>
+                    <td><span th:utext="${centre.nomCentre}"></span></td>
+                    <td><span th:utext="${centre.adresseCentre}"></span></td>
+                    <td><span th:utext="${centre.codesPostal}"></span></td>
+                    <td><span th:utext="${centre.ville}"></span></td>
+                    <td><span th:each="sessiongreta: ${sessions}" th:text="${#dates.format(sessiongreta.dateDebut, 'dd-MM-yyyy')}"></span></td>
+                    <td><span th:each="sessiongreta: ${sessions}" th:text="${#dates.format(sessiongreta.dateFin, 'dd-MM-yyyy')}"></span></td>
+                    <td><span th:each="uneFormation: ${formation}" th:utext="${uneFormation.typeFormation}"></span></td>
+                    <td><a href="#" th:href="@{'/show/'+${centre.id}}" class="btn btn-primary">Detail</a>
+                        <a href="#" th:href="@{'/centre/edit/'+${centre.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'/centre/supr/'+${centre.id}}" class="btn btn-danger">Suprimmer</a>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>

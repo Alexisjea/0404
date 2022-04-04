@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+
+<form action="#"
+      enctype="multipart/form-data"
+      method="post"
+      th:action="@{/session/edit}"
+      th:name="sessionupdate">
+    <div class="mb-3">
+        <input th:value="*{id}" type="hidden" th:name="id">
+        <label class="form-label">Date debut</label>
+        <input th:name="dateDebut" type="date" class="form-control"><br/>
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date fin</label>
+        <input th:name="dateFin" type="date" class="form-control"><br/>
+    </div>
+
+    <!--    <div class="mb-3 form-check"> <option th:each="sessiongreta: ${sessions}"-->
+    <!--                                          th:value="${sessiongreta.id}"-->
+    <!--                                          th:text="${sessiongreta.id}+' '+${sessiongreta.id}"-->
+    <!--                                          th:selected="${sessiongreta.id} == *{centre.id}">-->
+    <!--        Prénom Nom-->
+    <!--    </option>-->
+    <!--    </div>-->
+    <button type="submit" class="btn btn-primary">Update Session</button>
+</form>
+
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>

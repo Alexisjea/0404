@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:fragment="header-css">
+        <link rel="stylesheet" type="text/css"
+              href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+        <link rel="stylesheet" type="text/css"
+              href="/webjars/font-awesome/5.15.4/css/all.min.css"
+              th:href="@{/webjars/font-awesome/5.15.4/css/all.min.css}" />
+
+        <link rel="stylesheet" th:href="@{/css/main.css}"
+              href="../static/css/main.css" />
+
+    </th:block>
+</head>
+<body>
+<div th:fragment="header-nav">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" th:href="@{/}">Greta</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/}" href="#">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  th:href="@{/listformations}">Formations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="greeting" th:href="@{/listcentres}">Centre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="greeting" th:href="@{/Coordinateur/listreac}">Reac</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="greeting" th:href="@{/listactivites}">Activite</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="greeting" th:href="@{/listseances}">Seances</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/listsessions}" tabindex="-1" aria-disabled="true">Sessions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Coordinateur/Competences}" tabindex="-1" aria-disabled="true">Compétences</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

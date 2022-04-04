@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header-nav"/>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4 class="display-4">Sessions</h4>
+            <form action="#"
+                  enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/listsessions}"
+                  th:object="${sessionsgreta}">
+                <div class="mb-3">
+
+                    <input name="id" th:value="*{id}" type="hidden" class="form-control" >
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Date de debut</label>
+                    <input th:field="*{dateDebut}" type="date"  class="form-control"><br/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Date de fin</label>
+                    <input th:field="*{dateFin}" type="date"  class="form-control"><br/>
+                </div>
+                <!--    <div class="mb-3">-->
+                <!--        <label class="form-label">Ville</label>-->
+                <!--        <input th:field="*{ville}" type="text"><br/>-->
+                <!--    </div>-->
+                <div class="col-2">
+                    <select class="form-select" aria-label="Default select example" name="coordinateur">
+                        <option  selected>Coordinateur</option>
+                        <option th:each="unCoordinateur: ${coordinateur}" th:value="${unCoordinateur.id}" th:text="${unCoordinateur.nom}"  ></option>
+                    </select><br>
+                    <select class="form-select" aria-label="Default select example"name="formation">
+                        <option  selected>Formation</option>
+                        <option  th:each="uneFormation: ${formations}" th:value="${uneFormation.id}" th:text="${uneFormation.typeFormation}" ></option>
+                    </select>
+                    <select class="form-select" aria-label="Default select example" name="centre">
+                        <option  selected>Open this select menu</option>
+                        <option th:each="unCentre: ${centres}" th:value="${unCentre.id}" th:text="${unCentre.nomCentre}"></option>
+                    </select>
+                </div><br>
+                <button type="submit" class="btn btn-primary">Enregistrer session</button>
+            </form>
+<hr>
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th scope="col">Session Id</th>
+                    <th scope="col">Date début Session</th>
+
+                    <th scope="col">Date fin Session</th>
+
+
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sessiongreta: ${sessions}">
+                    <td><span th:utext="${sessiongreta.id}"></span></td>
+                    <td><span th:text="${#dates.format(sessiongreta.dateDebut, 'dd-MM-yyyy')}"></span></td>
+                    <td><span th:text="${#dates.format(sessiongreta.dateFin, 'dd-MM-yyyy')}"></span></td>
+<!--                    <td><span th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.coordinateur.nom}"></span></td>-->
+<!--                    <td><span th:text="${sessiongreta.formation.typeFormation}"></span></td>-->
+                    <td><a href="#" th:href="@{'/show/'+${sessiongreta.id}}" class="btn btn-primary">Detail</a>
+                        <a href="#" th:href="@{'/session/edit/'+${sessiongreta.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'/session/supr/'+${sessiongreta.id}}" class="btn btn-danger">Suprimmer</a>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+            <hr/>
+
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>

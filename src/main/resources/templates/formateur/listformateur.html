@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4 class="display-4">Intervenants</h4>
+
+            <table class="table table-striped">
+
+                    <thead>
+                    <tr>
+                        <th scope="col">Intervenant Id</th>
+                        <th scope="col">Intervenant Nom</th>
+                        <th scope="col">Intervenant Prenom</th>
+                        <th scope="col">Intervenant Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="intervenant: ${intervenants}">
+                        <td><span th:utext="${intervenant.id}"></span>                        </td>
+                        <td><span th:utext="${intervenant.nom}"></span></td>
+                        <td><span th:utext="${intervenant.prenom}"></span></td>
+                        <td><span th:utext="${intervenant.email}"></span></td>
+
+                        <!--                        <a href="#" th:href="@{'/formateur/detail/'+${formateur.id}}">detail</a>-->
+                            <!--                        <a href="#" th:href="@{'/formateur/edit/'+${formateur.id}}">edit</a>-->
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+            </table>
+            <hr/>
+            <a href="#" th:href="@{'/formateur/add'}">Ajouter un Formateur</a><br/>
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>

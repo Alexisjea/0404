@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header-nav"/>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4 class="display-4">Reac</h4>
+            <form action="#"
+                  enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/Coordinateur/addReac}"
+                  th:object="${reac}"
+                  name="reac">
+                <div class="mb-3">
+                    <label  class="form-label">Lien reac</label>
+                    <input th:name="lien" type="text" class="form-control" ><br/>
+
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Duree</label>
+                    <input th:name="duree" type="text" class="form-control"><br/>
+
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Date debur</label>
+                    <input th:name="dateDebut" type="date" class="form-control"><br/>
+
+                </div>
+                <select class="form-select" aria-label="Default select example" name="formation">
+                    <option selected>Formation</option>
+                    <option  th:each="uneFormation: ${formationAll}" th:value="${uneFormation.id}" th:text="${uneFormation.typeFormation}"></option>
+
+
+                </select><br>
+
+<!--                <div class="mb-3">-->
+<!--                    <label  class="form-label">Date debut</label>-->
+<!--                    <input th:name="dateDebut" type="text"><br/>-->
+<!--                    <div  class="form-text">We'll never share your email with anyone else.</div>-->
+<!--                </div>-->
+
+                <button type="submit" class="btn btn-primary">Créer reac </button><br><hr>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Reac Id</th>
+                    <th scope="col">Date début</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">lien</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody >
+                <div  >
+
+                <tr th:each="unReac: ${reacs}"  >
+                    <td><span th:utext="${unReac.id}"></span></td>
+                    <td><span th:text="${#dates.format(unReac.dateDebut, 'dd-MM-yyyy')}"></span></td>
+                    <td><span th:utext="${unReac.duree}"></span></td>
+                    <td><span th:utext="${unReac.lien}"></span></td>
+                    <td>
+                        <a href="#" th:href="@{'reac/edit/'+${unReac.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'reac/supr/'+${unReac.id}}" class="btn btn-danger">Suprimmer</a>
+                    </td>
+                </tr>
+                </div>
+                </tbody>
+            </table>
+            <hr/>
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>

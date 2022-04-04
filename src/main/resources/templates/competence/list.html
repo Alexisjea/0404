@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header-nav"/>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4 class="display-4">Competences</h4>
+            <form action="#"
+                  enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/Coordinateur/addCompetence}"
+                   name="competence">
+                <div class="row p-2 my-2">
+                    <div class="col-auto">
+                        <input type="text" name="nom" class="form-control" placeholder="Nom" aria-label="Last name">
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" name="numFicheCompetence" class="form-control" placeholder="" aria-label="Last name">
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select" aria-label="Default select example" name="activite">
+                            <option selected>Activite nom</option>
+                            <option th:each="uneActivite :${activites}"
+                                    th:text="${uneActivite.activitesTypes}"
+                                    th:name="${uneActivite.id}"
+                                    th:value="${uneActivite.id}">
+                            </option>
+                            <select/>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select" aria-label="Default select example" name="seance" type="number">
+                            <option selected>Seance id</option>
+
+                            <select/>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select" aria-label="Default select example" name="seance">
+                            <option selected>Seance nom</option>
+                            <option th:each="uneSeance :${seances}"
+                                    th:text="${uneSeance.deroulement}"
+                                    th:name="${uneSeance.id}"
+                                    th:value="${uneSeance.id}">
+                            </option>
+                            <select/>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Enregistrer Compétence</button>
+                    </div>
+
+
+                </div>
+            </form>
+
+            <hr>
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th scope="col">Competence Id</th>
+                    <th scope="col">Nom competence</th>
+                    <th scope="col">Num fiche de la competence</th>
+                    <th scope="col">Activites</th>
+                    <th scope="col">Déroulement seance</th>
+                    <th scope="col">Id seance</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="uneCompetence: ${competences}">
+                    <td th:text="${uneCompetence.id}"></td>
+                    <td th:text="${uneCompetence.nom}"></td>
+                    <td th:text="${uneCompetence.numFicheCompetence}"></td>
+                    <td th:text="${uneCompetence.activite.activitesTypes}"></td>
+                    <td  th:each="uneSeance: ${seances}"th:text="${uneSeance.deroulement}"></td>
+                    <td  th:each="uneSeance: ${seances}"th:text="${uneSeance.id}"></td>
+                    <td>
+                        <a href="#" th:href="@{'Competences/edit/'+${uneCompetence.id}}"
+                           class="btn btn-warning">Modifier</a>
+                        <a href="#" th:href="@{'Competences/'+${uneCompetence.id}}"
+                           class="btn btn-danger">Suprimmer</a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+            <hr/>
+
+            <!--            <select class="form-select" aria-label="Default select example"  >-->
+            <!--                <option  selected>Competences</option>-->
+            <!--                <option value="1"th:each="competences: ${competence}" th:text="${competences.nom}"></option>-->
+
+
+            <!--            </select>-->
+            <!--            <select class="form-select" aria-label="Default select example"  >-->
+            <!--                <option  selected>Num reac</option>-->
+            <!--                <option value="1"th:each="unReac: ${reacs}" th:text="${unReac.id}"></option>-->
+
+
+            <!--            </select>-->
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>

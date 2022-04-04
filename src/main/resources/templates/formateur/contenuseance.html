@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+
+<main class="container">
+    <div class="row">
+        <div class=" d-flex justify-content-center">
+            <form class="" action="/" method="post">
+                <div class="mb-3 col-md-10">
+                    <label for="exampleInputEmail1" class="form-label" >Formation</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                </div>
+
+
+
+
+                        <div class="mb-3 form-check col-md-10">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
+                        </div>
+                <button type="submit" class="btn btn-primary">Se connecter</button>
+            </form></div>
+    </div>
+    <!--<p th:text="'Note du premier film : ' + ${films[0].note}"></p>-->
+    <!--<img th:src="@{'images/affiches/' + 'f0006.jpg'}" height="200" width="142">-->
+</main>
+
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>

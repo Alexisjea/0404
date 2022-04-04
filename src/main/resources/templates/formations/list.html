@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header-nav"/>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="#"
+                  enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/listformations}"
+                  th:object="${formation}" name="formation">
+                <div class="mb-3">
+                    <label  class="form-label">Nom Formation</label>
+                    <input  th:field="*{typeFormation}" class="form-control" th:name="typeFormation">
+                    <div id="" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" th:href="@{'/formations/list'}">Enregistrer formation</button>
+            </form>
+            <h4 class="display-4">Formations</h4>
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th scope="col">Formation Id</th>
+                    <th scope="col">Formation Nom</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="formation: ${formations}">
+                    <td><span th:utext="${formation.id}"></span></td>
+                    <td><span th:utext="${formation.typeFormation}"></span></td>
+                    <td>
+                        <a href="#" th:href="@{'/formations/edit/'+${formation.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'/formations/supr/'+${formation.id}}" class="btn btn-danger">Suprimmer</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr/>
+
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/footer.html :: footer"/>
+
+</body>
+</html>
