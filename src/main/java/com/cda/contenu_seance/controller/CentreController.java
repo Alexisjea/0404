@@ -12,20 +12,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class CentreController {
+public class CentreController{
 
     @Autowired
     FicheService ficheService;
 
     @PostMapping("/listcentres")
-    public String ajouterunCentre(@ModelAttribute(name ="centre") CentreDTO centreDTO){
+    public String ajouterunCentre(@Valid @ModelAttribute(name ="centres") CentreDTO centreDTO, BindingResult result, Model model){
+        if (result.hasErrors()) {
+            System.out.println("NO VALID CACA");
+            model.addAttribute("centres" , ficheService.getAllFormationsFormation());
+            model.addAttribute("sessions" , ficheService.getAllSessionsSession());
+            model.addAttribute("formation",ficheService.getAllFormationsFormation());
+            model.addAttribute("centre" , new CentreDTO());
+            return  "centre/list";
+        }
         ficheService.saveCentre(centreDTO);
         return "redirect:/listcentres";
     }
@@ -44,14 +54,22 @@ public class CentreController {
         return "redirect:/listcentres";
     }
     @GetMapping("/centre/edit/{id}")
-    public String showUpdateForm(@PathVariable(name = "id") Long id, Model model) {
+    public String showUpdateForm( @PathVariable(name = "id") Long id, Model model) {
         model.addAttribute("centre", id);
         model.addAttribute("formations",id);
         model.addAttribute("sessionss", id);
         return "centre/edit";
     }
     @PostMapping("/traitement")
-    public String updateCentre(@ModelAttribute(name ="centre") CentreDTO centreDTO, FormationDTO formationDTO, Model model){
+    public String updateCentre(@Valid @ModelAttribute(name ="centre") CentreDTO centreDTO, Model model, BindingResult result){
+        if (result.hasErrors()) {
+            System.out.println("NO VALID CACA");
+            model.addAttribute("centres" , ficheService.getAllFormationsFormation());
+            model.addAttribute("sessions" , ficheService.getAllSessionsSession());
+            model.addAttribute("formation",ficheService.getAllFormationsFormation());
+            model.addAttribute("centre" , new CentreDTO());
+            return  "centre/list";
+        }
         ficheService.updateCentre(centreDTO);
         return "redirect:/listcentres";
     }

@@ -19,6 +19,7 @@
                 <div class="mb-3">
                     <label  class="form-label">Nom centre</label>
                     <input class="form-control" th:field="*{nomCentre}" type="text"><br/>
+                    <span th:if="${#fields.hasErrors('nomCentre')}"th:errors="*{nomCentre}">Le type de formation est invalide</span>
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">

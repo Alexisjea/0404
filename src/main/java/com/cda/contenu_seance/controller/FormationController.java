@@ -9,18 +9,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
 
+import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
-public class FormationController {
+public class FormationController implements WebMvcConfigurer{
 
     // TODO Delete Clef etrangère à faire reste CRUD effectué
 
     @Autowired
     FicheService ficheService;
+    private FormationDTO formationDTO;
+    private BindingResult result;
 
     @GetMapping(value = {"/listformations"})
     public String listeFormations( Model model){
@@ -30,11 +39,21 @@ public class FormationController {
         model.addAttribute("sessions" , ficheService.getAllSessionsSession());
         return "formations/list";
     }
+
     @PostMapping("/listformations")
-    public String addFormation( @ModelAttribute(name ="formation")  @Validated FormationDTO formationDTO){
+    public String addFormation(@Valid  @ModelAttribute(name ="formation") FormationDTO formationDTO, BindingResult result,Model model){
+
+        if (result.hasErrors()) {
+            System.out.println("NO VALID CACA");
+            model.addAttribute("formations" , ficheService.getAllFormationsFormation());
+            return  "formations/list";
+        }
         ficheService.saveFormation(formationDTO);
-        return "redirect:/listformations";
+        return  "redirect:/";
+
     }
+
+
     @GetMapping("/formations/supr/{id}")
     public String deleteFormation( @PathVariable(name = "id") Long id){
         ficheService.deleteFormation(id);

@@ -6,6 +6,7 @@ import com.cda.contenu_seance.model.Session;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +27,7 @@ public class SeanceDTO {
     private String objectifPeda;
     private Formateur formateur;
     private Session session;
+    @Nullable
     private Set<Competence> competences;
 
 

@@ -10,19 +10,22 @@
 
     <div class="jumbotron">
         <div class="container">
+
             <form action="#"
                   enctype="multipart/form-data"
                   method="post"
                   th:action="@{/listformations}"
                   th:object="${formation}" name="formation">
-                <div class="mb-3">
+
+                <div class="mt-5 mb-5">
                     <label  class="form-label">Nom Formation</label>
                     <input  th:field="*{typeFormation}" class="form-control" th:name="typeFormation">
-                    <div id="" class="form-text">We'll never share your email with anyone else.</div>
+                   <span th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>
                 </div>
 
                 <button type="submit" class="btn btn-primary" th:href="@{'/formations/list'}">Enregistrer formation</button>
             </form>
+
             <h4 class="display-4">Formations</h4>
 
             <table class="table table-striped">
@@ -36,7 +39,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="formation: ${formations}">
-                    <td><span th:utext="${formation.id}"></span></td>
+                    <td><span  th:utext="${formation.id}"></span></td>
                     <td><span th:utext="${formation.typeFormation}"></span></td>
                     <td>
                         <a href="#" th:href="@{'/formations/edit/'+${formation.id}}" class="btn btn-warning">Edit</a>

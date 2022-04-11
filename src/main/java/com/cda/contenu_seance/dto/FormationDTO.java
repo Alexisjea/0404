@@ -16,8 +16,8 @@ public class FormationDTO {
 
     private Long id;
     @NotEmpty
-    @NotBlank(message = "ne peut pas etre vide CACACACACCAACCACAACCACACACAC")
-    @Size(min = 3, message = "plus de 3 caracteres")
+    @NotBlank
+    @Size(min = 3, max = 8)
     private String typeFormation;
     private Centre centre;
     private List<Session> sessions;
