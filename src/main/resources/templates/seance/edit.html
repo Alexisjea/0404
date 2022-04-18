@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css (title='Films')"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header-nav"/>
+<div class="container bg-light shadow-lg mt-5">
+    <div class="mb-3 mt-5">
+    </div>
+
+    <h4 class="display-4 text-center mb-4" >Editer une seance</h4>
+
+    <form action="#"
+          enctype="multipart/form-data"
+          method="post"
+          th:action="@{/traitementSeances}"
+          th:name="seanceupdate"
+          th:object="${seanceDTO}">
+
+        <input th:value="${id}" th:type="hidden" th:name="id">
+
+        <div class="mb-3">
+            <label  class="form-label">Date du jour</label>
+            <input  th:field="*{dateDuJour}" class="form-control" th:name="dateDuJour" type="date">
+        </div>
+        <div class="mb-5">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('dateDuJour')}"th:errors="*{dateDuJour}"></p>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Duree</label>
+            <input  th:field="*{duree}" class="form-control" th:name="duree">
+        </div>
+        <div class="mb-5">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('duree')}"th:errors="*{duree}"></p>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Nom support</label>
+            <input  th:field="*{supportUse}" class="form-control" th:name="supportUse">
+        </div>
+        <div class="mb-5">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('supportUse')}"th:errors="*{supportUse}"></p>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Déroulement</label>
+            <input  th:field="*{deroulement}" class="form-control" th:name="deroulement">
+        </div>
+        <div class="mb-5">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('deroulement')}"th:errors="*{deroulement}"></p>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Objectif pédagogique</label>
+            <input  th:field="*{objectifPeda}" class="form-control" th:name="objectifPeda">
+        </div>
+        <div class="mb-5">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('objectifPeda')}"th:errors="*{objectifPeda}"></p>
+        </div>
+        <!--    <select class="form-select" aria-label="Default select example" name="activite">-->
+        <!--        <option selected>Open this select menu</option>-->
+        <!--        <option th:each="uneActivite :${activites}"-->
+        <!--                th:text="${uneActivite.activitesTypes}"-->
+        <!--                th:name="${uneActivite.id}"-->
+        <!--                th:value="${uneActivite.id}">-->
+
+        <!--        </option>-->
+        <!--        <select/><br>-->
+        <div class="d-flex justify-content-center mb-4 mt-2 pb-4">
+            <button type="submit" class="btn btn-primary shadow-primary mt-4">Update Seance</button>
+        </div>
+
+    </form>
+</div>
+<div th:replace="fragments/footer:: footer"/>
+</body>
+</html>
+
+</html>

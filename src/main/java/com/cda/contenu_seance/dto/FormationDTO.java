@@ -16,8 +16,7 @@ public class FormationDTO {
 
     private Long id;
     @NotEmpty
-    @NotBlank
-    @Size(min = 3, max = 8)
+    @Size(min = 2 ,max = 255)
     private String typeFormation;
     private Centre centre;
     private List<Session> sessions;

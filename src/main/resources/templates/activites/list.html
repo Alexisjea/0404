@@ -10,45 +10,55 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h4 class="display-4">Activite</h4>
+            <h4 class="display-4 text-center">Ajouter une activité</h4>
+            <div class="col-md-12" align="center">
+                <br />
+                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                    <p  th:text="${successMsg}" />
+                </div>
+            </div>
             <form action="#"
                   enctype="multipart/form-data"
                   method="post"
                   th:action="@{/listactivites}"
-                  th:object="${activite}"
+                  th:object="${activiteDTO}"
                     name="activite">
 
                 <div class="mb-3">
-                    <label  class="form-label">Nom activite</label>
+                    <label  class="form-label">Nom activité</label>
                     <input class="form-control" th:field="*{activitesTypes}" type="text" th:name="activitesTypes"><br/>
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('activitesTypes')}"th:errors="*{activitesTypes}"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Num ordre</label>
                     <input class="form-control" th:field="*{numOrdre}" type="text" th:name="numOrdre"><br/>
                 </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('numOrdre')}"th:errors="*{numOrdre}"></span>
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label">Reac</label>
                     <input class="form-control" th:field="*{reac}" type="text" th:name="reac"><br/>
                 </div>
 
-                <select class="form-select" aria-label="Default select example"  >
-                    <option  selected>Date de debut</option>
+                <select class="form-select mb-3" aria-label="Default select example"  >
+                    <option  selected>Compétence 1</option>
                     <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>
-
-
                 </select>
-                <select class="form-select" aria-label="Default select example"  >
-                    <option  selected>Date de debut</option>
+                <select class="form-select mb-3" aria-label="Default select example"  >
+                    <option  selected>Compétence 2</option>
                     <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>
-
-
                 </select>
 
 
                 <button type="submit" class="btn btn-primary">Enregistrer Activité</button>
-            </form><br>
-
+            </form><hr><br>
+            <div class="mb-5">
+                <h4 class="display-4 text-center">Activités</h4>
+            </div>
 
             <table class="table table-striped">
 
@@ -80,12 +90,7 @@
             </table>
             <hr/>
 
-            <select class="form-select" aria-label="Default select example"  >
-                <option  selected>Competences</option>
-                <option value="1"th:each="competences: ${competence}" th:text="${competences.nom}"></option>
 
-
-            </select>
 <!--            <select class="form-select" aria-label="Default select example"  >-->
 <!--                <option  selected>Num reac</option>-->
 <!--                <option value="1"th:each="unReac: ${reacs}" th:text="${unReac.id}"></option>-->

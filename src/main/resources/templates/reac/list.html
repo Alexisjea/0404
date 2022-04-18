@@ -10,27 +10,39 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h4 class="display-4">Reac</h4>
+            <h4 class="display-4 text-center">  Ajouter un Reac</h4>
+            <div class="col-md-12" align="center">
+                <br />
+                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                    <p  th:text="${successMsg}" />
+                </div>
+            </div>
             <form action="#"
                   enctype="multipart/form-data"
                   method="post"
                   th:action="@{/Coordinateur/addReac}"
-                  th:object="${reac}"
+                  th:object="${reacDTO}"
                   name="reac">
                 <div class="mb-3">
                     <label  class="form-label">Lien reac</label>
                     <input th:name="lien" type="text" class="form-control" ><br/>
-
+                </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('lien')}"th:errors="*{lien}"></span>
                 </div>
                 <div class="mb-3">
                     <label  class="form-label">Duree</label>
                     <input th:name="duree" type="text" class="form-control"><br/>
-
+                </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('duree')}"th:errors="*{duree}"></span>
                 </div>
                 <div class="mb-3">
-                    <label  class="form-label">Date debur</label>
+                    <label  class="form-label">Date debut</label>
                     <input th:name="dateDebut" type="date" class="form-control"><br/>
-
+                </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('dateDebut')}"th:errors="*{dateDebut}"></span>
                 </div>
                 <select class="form-select" aria-label="Default select example" name="formation">
                     <option selected>Formation</option>
@@ -47,6 +59,9 @@
 
                 <button type="submit" class="btn btn-primary">Créer reac </button><br><hr>
             </form>
+            <div class="mb-5">
+                <h4 class="display-4 text-center">Reacs</h4>
+            </div>
             <table class="table table-striped">
                 <thead>
                 <tr>

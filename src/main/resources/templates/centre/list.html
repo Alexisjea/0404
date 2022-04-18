@@ -10,29 +10,57 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h4 class="display-4">Centres</h4>
+            <h4 class="display-4 text-center">Ajouter un centre</h4>
+            <div class="col-md-12" align="center">
+                <br />
+                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                    <p  th:text="${successMsg}" />
+                </div>
+            </div>
             <form action="#"
                   enctype="multipart/form-data"
                   method="post"
                   th:action="@{/listcentres}"
-                  th:object="${centre}">
+                  th:object="${centreDTO}" name="centre">
                 <div class="mb-3">
                     <label  class="form-label">Nom centre</label>
                     <input class="form-control" th:field="*{nomCentre}" type="text"><br/>
-                    <span th:if="${#fields.hasErrors('nomCentre')}"th:errors="*{nomCentre}">Le type de formation est invalide</span>
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-5">
+                    <ul>
+                        <li  class="alert alert-danger" th:each="err : ${#fields.errors('nomCentre')}" th:text="${err}"></li>
+                    </ul>
+                    <!--                     <span class="alert alert-danger" th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>-->
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Adresse centre</label>
                     <input class="form-control" th:field="*{adresseCentre}" type="text"><br/>
                 </div>
+                <div class="mb-5">
+                    <ul>
+                        <li  class="alert alert-danger" th:each="err : ${#fields.errors('adresseCentre')}" th:text="${err}"></li>
+                    </ul>
+                    <!--                     <span class="alert alert-danger" th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>-->
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Cp</label>
                     <input class="form-control" th:field="*{codesPostal}" type="text"><br/>
                 </div>
+                <div class="mb-5">
+                    <ul>
+                        <li  class="alert alert-danger" th:each="err : ${#fields.errors('codesPostal')}" th:text="${err}"></li>
+                    </ul>
+                    <!--                     <span class="alert alert-danger" th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>-->
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Ville</label>
                     <input class="form-control" th:field="*{ville}" type="text"><br/>
+                </div>
+                <div class="mb-5">
+                    <ul>
+                        <li  class="alert alert-danger" th:each="err : ${#fields.errors('ville')}" th:text="${err}"></li>
+                    </ul>
+                    <!--                     <span class="alert alert-danger" th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>-->
                 </div>
                 <div class="col-2">
                     <select class="form-select" aria-label="Default select example"  >
@@ -41,28 +69,24 @@
 
 
                     </select><br/>
+                    <div class="mb-5">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('sessions')}"th:errors="*{sessions}">Le type de formation est invalide</p>
+                    </div>
                     <select class="form-select" aria-label="Default select example"  >
                         <option  selected>Date de fin</option>
                         <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.dateFin}"></option>
 
 
                     </select><br/>
-                    <select class="form-select" aria-label="Default select example"  >
-                        <option  selected>Nom formation</option>
-                        <option value="1"th:each="formationgreta: ${formation}" th:text="${formationgreta.typeFormation}"></option>
-
-
-                    </select><br/>
-                    <!--        <select class="form-select" aria-label="Default select example"  >-->
-                    <!--            <option  selected>Open this select menu</option>-->
-                    <!--            <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.}"></option>-->
-
-
-                    <!--        </select>-->
+                    <div class="mb-5">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('sessions')}"th:errors="*{sessions}">Le type de formation est invalide</p>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Enregistrer Centre</button>
+                <button type="submit" class="btn btn-primary">Enregistrer Centre</button><br><hr>
             </form>
+            <div class="mb-5">
+                <h4 class="display-4 text-center">Centres</h4></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -78,26 +102,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="centre: ${centres}">
-                    <td><span th:utext="${centre.id}"></span></td>
-                    <td><span th:utext="${centre.nomCentre}"></span></td>
-                    <td><span th:utext="${centre.adresseCentre}"></span></td>
-                    <td><span th:utext="${centre.codesPostal}"></span></td>
-                    <td><span th:utext="${centre.ville}"></span></td>
+                <tr th:each="unCentre: ${centres}">
+                    <td><span th:utext="${unCentre.id}"></span></td>
+                    <td><span th:utext="${unCentre.nomCentre}"></span></td>
+                    <td><span th:utext="${unCentre.adresseCentre}"></span></td>
+                    <td><span th:utext="${unCentre.codesPostal}"></span></td>
+                    <td><span th:utext="${unCentre.ville}"></span></td>
                     <td><span th:each="sessiongreta: ${sessions}" th:text="${#dates.format(sessiongreta.dateDebut, 'dd-MM-yyyy')}"></span></td>
                     <td><span th:each="sessiongreta: ${sessions}" th:text="${#dates.format(sessiongreta.dateFin, 'dd-MM-yyyy')}"></span></td>
                     <td><span th:each="uneFormation: ${formation}" th:utext="${uneFormation.typeFormation}"></span></td>
-                    <td><a href="#" th:href="@{'/show/'+${centre.id}}" class="btn btn-primary">Detail</a>
-                        <a href="#" th:href="@{'/centre/edit/'+${centre.id}}" class="btn btn-warning">Edit</a>
-                        <a href="#" th:href="@{'/centre/supr/'+${centre.id}}" class="btn btn-danger">Suprimmer</a>
+                    <td><a href="#" th:href="@{'/show/'+${unCentre.id}}" class="btn btn-primary">Detail</a>
+                        <a href="#" th:href="@{'/centre/edit/'+${unCentre.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'/centre/supr/'+${unCentre.id}}" class="btn btn-danger">Suprimmer</a>
                     </td>
                 </tr>
 
                 </tbody>
 
             </table>
+<!--            <div  th:if="${successMsg}" id="notif"-->
+<!--                  class="fixed-bottom rounded-pill bg-primary border border-1 border-dark mx-2 my-3 col-6 col-lg-3">-->
+<!--                <div class="fs-5 col align-center m-2">-->
+<!--                    <i class="bi bi-bell px-2"></i>-->
+<!--                    <div class="col-md-12" align="center">-->
 
+<!--                        <p  th:text="${successMsg}" />-->
+<!--                    </div>-->
 
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </main>

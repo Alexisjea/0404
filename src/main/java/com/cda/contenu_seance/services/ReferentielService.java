@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +48,7 @@ public class ReferentielService {
         activiteDb.setActivitesTypes(activiteDTO.getActivitesTypes());
         activiteDb.setCompetences(activiteDTO.getCompetences());
         activiteDb.setReac(activiteDTO.getReac());
+
         activiteRepository.save(activiteDb);
     }
     public Activite getActiviteById(Long id){
@@ -64,16 +66,28 @@ public class ReferentielService {
         this.deleteActivite(activite.getId());
     }
 
+    public ActiviteDTO convertActiviteEntityToDto(Activite activite){
+        ActiviteDTO activiteDTO = new ActiviteDTO();
+        activiteDTO.setId(activite.getId());
+        activiteDTO.setCompetences(activite.getCompetences());
+        activiteDTO.setNumOrdre(activite.getNumOrdre());
+        activiteDTO.setActivitesTypes(activite.getActivitesTypes());
+        activiteDTO.setReac(activite.getReac());
+        activiteDTO.setCompetences(activite.getCompetences());
+        return activiteDTO;
 
+    }
     //------------------------------------------Compétence --------------------------------------------------//*
 
     public List <Competence> getAllCompetences(){
         return competenceRepository.findAll();
     }
-    public Competence getCompetence(Long id){
-        return competenceRepository.findById(id).orElse(new Competence());
-    }
 
+
+
+    public Optional<Competence> getCompetence(final Long id){
+        return competenceRepository.findById(id);
+    }
    public void saveCompetence(CompetenceDTO competenceDTO){
         Competence competenceDB;
         if(null == competenceDTO.getId()){
@@ -86,6 +100,16 @@ public class ReferentielService {
         competenceDB.setNumFicheCompetence(competenceDTO.getNumFicheCompetence());
         competenceDB.setActivite(competenceDTO.getActivite());
         competenceRepository.save(competenceDB);
+    }
+    public  CompetenceDTO convertCompetenceEntityToDtoCompetence(Competence competence){
+        CompetenceDTO competenceDTO = new CompetenceDTO();
+        competenceDTO.setId(competence.getId());
+        competenceDTO.setActivite(competence.getActivite());
+        competenceDTO.setNom(competence.getNom());
+        competenceDTO.setSeances(competence.getSeances());
+
+        return competenceDTO;
+
     }
     public void updateCompetence(CompetenceDTO competenceDTO){
         Competence competenceDB = competenceRepository.findById(competenceDTO.getId()).orElse(new Competence());
@@ -128,6 +152,7 @@ public class ReferentielService {
         reacDB.setFormation(reacDTO.getFormation());
         reacDB.setDateDebut(reacDTO.getDateDebut());
         reacDB.setDuree(reacDTO.getDuree());
+
         reacRepository.save(reacDB);
     }
     //-------------------Suprimmer Reac----------------------------------------//
@@ -140,35 +165,23 @@ public class ReferentielService {
     }
 
 
-//    public List<ReacDTO> getAllReacsReac(){
-//        return reacRepository.findAll()
-//                .stream()
-//                .map(ReferentielService::convertReacEntityToDtoReac)
-//                .collect(Collectors.toList());
-//    }
-//
-//    private static ReacDTO convertReacEntityToDtoReac(Reac reac){
-//        ReacDTO reacDTO = new ReacDTO();
-//        reacDTO.setId(reac.getId());
-//        reacDTO.setActivites(reac.getActivites());
-//        reacDTO.setDateDebut(reac.getDateDebut());
-//        reacDTO.setDuree(reac.getDuree());
-//        reacDTO.setFormation(reac.getFormation());
-//        reacDTO.setLien(reac.getLien());
-//
-//        return reacDTO;
-//
-//    }
-    //    private static CompetenceDTO convertCompetenceEntityToDtoCompetence(Competence competence){
-//        CompetenceDTO competenceDTO = new CompetenceDTO();
-//        competenceDTO.setId(competence.getId());
-//        competenceDTO.setActivite(competence.getActivite());
-//        competenceDTO.setNom(competence.getNom());
-//        competenceDTO.setSeances(competence.getSeances());
-//
-//        return competenceDTO;
-//
-//    }
+
+    public Optional <Reac> getReacById(final Long id){
+        return reacRepository.findById(id);
+    }
+    public ReacDTO convertReacEntityToDtoReac(Reac reac){
+        ReacDTO reacDTO = new ReacDTO();
+        reacDTO.setId(reac.getId());
+        reacDTO.setActivites(reac.getActivites());
+        reacDTO.setDateDebut(reac.getDateDebut());
+        reacDTO.setDuree(reac.getDuree());
+        reacDTO.setFormation(reac.getFormation());
+        reacDTO.setLien(reac.getLien());
+
+        return reacDTO;
+
+    }
+
 //    public List<CompetenceDTO> getAllCompetencesCompetence(){
 //        return competenceRepository.findAll()
 //                .stream()
@@ -176,15 +189,7 @@ public class ReferentielService {
 //                .collect(Collectors.toList());
 //    }
 
-//    private static ActiviteDTO convertActiviteEntityToDto(Activite activite){
-//        ActiviteDTO activiteDTO = new ActiviteDTO();
-//        activiteDTO.setId(activite.getId());
-//        activiteDTO.setCompetences(activite.getCompetences());
-//       activiteDTO.setActivites(activite.getActivites());
-//        activiteDTO.setActivitesTypes(activite.getActivitesTypes());
-//        return activiteDTO;
-//
-//    }
+
 
 
 //    public List<ActiviteDTO> getAllActivitesActivite(){
@@ -193,5 +198,11 @@ public class ReferentielService {
 //                .map(ReferentielService::convertActiviteEntityToDto)
 //                .collect(Collectors.toList());
 //    }
-
+//    public List<ReacDTO> getAllReacsReac(){
+//        return reacRepository.findAll()
+//                .stream()
+//                .map(ReferentielService::convertReacEntityToDtoReac)
+//                .collect(Collectors.toList());
+//    }
+//
 }

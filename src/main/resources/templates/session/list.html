@@ -10,12 +10,18 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h4 class="display-4">Sessions</h4>
+            <h4 class="display-4 text-center">Ajouter une Session</h4>
+            <div class="col-md-12" align="center">
+                <br />
+                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                    <p  th:text="${successMsg}" />
+                </div>
+            </div>
             <form action="#"
                   enctype="multipart/form-data"
                   method="post"
-                  th:action="@{/listsessions}"
-                  th:object="${sessionsgreta}">
+                  th:action="@{/addSession}"
+                  th:object="${sessionsDTO}">
                 <div class="mb-3">
 
                     <input name="id" th:value="*{id}" type="hidden" class="form-control" >
@@ -25,9 +31,15 @@
                     <label class="form-label">Date de debut</label>
                     <input th:field="*{dateDebut}" type="date"  class="form-control"><br/>
                 </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('dateDebut')}"th:errors="*{dateDebut}">Le type de formation est invalide</span>
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Date de fin</label>
                     <input th:field="*{dateFin}" type="date"  class="form-control"><br/>
+                </div>
+                <div class="mb-5">
+                    <span class="alert alert-danger" th:if="${#fields.hasErrors('dateFin')}"th:errors="*{dateFin}">Le type de formation est invalide</span>
                 </div>
                 <!--    <div class="mb-3">-->
                 <!--        <label class="form-label">Ville</label>-->
@@ -41,25 +53,26 @@
                     <select class="form-select" aria-label="Default select example"name="formation">
                         <option  selected>Formation</option>
                         <option  th:each="uneFormation: ${formations}" th:value="${uneFormation.id}" th:text="${uneFormation.typeFormation}" ></option>
-                    </select>
+                    </select><br>
                     <select class="form-select" aria-label="Default select example" name="centre">
-                        <option  selected>Open this select menu</option>
+                        <option  selected>Centre</option>
                         <option th:each="unCentre: ${centres}" th:value="${unCentre.id}" th:text="${unCentre.nomCentre}"></option>
                     </select>
                 </div><br>
                 <button type="submit" class="btn btn-primary">Enregistrer session</button>
             </form>
 <hr>
+            <div class="mb-5">
+                <h4 class="display-4 text-center">Sessions</h4>
+            </div>
+
             <table class="table table-striped">
 
                 <thead>
                 <tr>
                     <th scope="col">Session Id</th>
                     <th scope="col">Date début Session</th>
-
                     <th scope="col">Date fin Session</th>
-
-
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>

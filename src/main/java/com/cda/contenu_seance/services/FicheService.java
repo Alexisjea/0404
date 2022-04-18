@@ -30,7 +30,7 @@ public class FicheService {
     public FicheService(FormationRepository formationRepository,
                         SeanceRepository seanceRepository,
                         SessionRepository sessionRepository,
-                        CentreRepository centreRepository ){
+                        CentreRepository centreRepository) {
 
         this.formationRepository = formationRepository;
         this.seanceRepository = seanceRepository;
@@ -41,24 +41,26 @@ public class FicheService {
 
     //---------------------------------- Centre ---------------------------------------------//
 
-//    private static CentreDTO convertCentreEntityToDtoCentre(Centre centre){
-//        CentreDTO centreDTO = new CentreDTO();
-//        centreDTO.setId(centre.getId());
-//        centreDTO.setNomCentre(centre.getNomCentre());
-//        centreDTO.setCodesPostal(centre.getCodesPostal());
-//        centreDTO.setAdresseCentre(centre.getAdresseCentre());
-//        centreDTO.setVille(centre.getVille());
-//        return centreDTO;
-//
-//    }
-    public List<Centre> getAllCentresCentre(){
+    public CentreDTO convertCentreEntityToDtoCentre(Centre centre) {
+        CentreDTO centreDTO = new CentreDTO();
+        centreDTO.setId(centre.getId());
+        centreDTO.setNomCentre(centre.getNomCentre());
+        centreDTO.setCodesPostal(centre.getCodesPostal());
+        centreDTO.setAdresseCentre(centre.getAdresseCentre());
+        centreDTO.setVille(centre.getVille());
+        return centreDTO;
+
+    }
+
+    public List<Centre> getAllCentresCentre() {
         return centreRepository.findAll();
     }
-    public void saveCentre(CentreDTO centreDTO){
+
+    public void saveCentre(CentreDTO centreDTO) {
         Centre centreDB;
-        if(null == centreDTO.getId()){
+        if (null == centreDTO.getId()) {
             centreDB = new Centre();
-        }else{
+        } else {
             centreDB = centreRepository.findById(centreDTO.getId()).orElse(new Centre());
         }
         centreDB.setId(centreDTO.getId());
@@ -67,11 +69,12 @@ public class FicheService {
         centreDB.setCodesPostal(centreDTO.getCodesPostal());
         centreDB.setVille(centreDTO.getVille());
         //unDto.setSessions(sessionRepository.findById(centreDTO.getSessions()).get());
-        // modifier l'affiche si nécessaire => si un fichier a été uploadé
+
         centreRepository.save(centreDB);
     }
-    public void updateCentre(CentreDTO centreDTO){
-        Centre  centreDb = centreRepository.findById(centreDTO.getId()).orElse(null);
+
+    public void updateCentre(CentreDTO centreDTO) {
+        Centre centreDb = centreRepository.findById(centreDTO.getId()).orElse(null);
         centreDb.setAdresseCentre(centreDTO.getAdresseCentre());
         centreDb.setNomCentre(centreDTO.getNomCentre());
         centreDb.setCodesPostal(centreDTO.getCodesPostal());
@@ -81,13 +84,13 @@ public class FicheService {
     }
 
 
-
     //---------------Suprimmer Centre ---------------------------//
 
-    public void deleteCentre(long id){
+    public void deleteCentre(long id) {
         centreRepository.deleteById(id);
     }
-    public void deleteCentre(Centre centre){
+
+    public void deleteCentre(Centre centre) {
         this.deleteCentre(centre.getId());
     }
 
@@ -97,10 +100,9 @@ public class FicheService {
     }
 
 
-
     //---------------------------------------------Formation-----------------------------------------------------//
 
-    private static FormationDTO convertFormationEntityToDtoFormation(Formation formation){
+    public FormationDTO convertFormationEntityToDtoFormation(Formation formation) {
         FormationDTO formationDTO = new FormationDTO();
         formationDTO.setId(formation.getId());
         formationDTO.setTypeFormation(formation.getTypeFormation());
@@ -110,23 +112,29 @@ public class FicheService {
 
     }
 
-    public List<Formation> getAllFormationsFormation(){
+    public Optional<Formation> getFormationById(final Long id) {
+        return formationRepository.findById(id);
+    }
+
+    public List<Formation> getAllFormationsFormation() {
         return formationRepository.findAll();
 
     }
-    public void saveFormation(FormationDTO formationDTO){
+
+    public void saveFormation(FormationDTO formationDTO) {
         Formation formationDb;
-        if(null == formationDTO.getId()){
+        if (null == formationDTO.getId()) {
             formationDb = new Formation();
-        }else{
+        } else {
             formationDb = formationRepository.findById(formationDTO.getId()).orElse(new Formation());
         }
         formationDb.setTypeFormation(formationDTO.getTypeFormation());
 
         formationRepository.save(formationDb);
     }
-    public void updateFormation(FormationDTO formationDTO){
-        Formation  formationDb = formationRepository.findById(formationDTO.getId()).orElse(null);
+
+    public void updateFormation(FormationDTO formationDTO) {
+        Formation formationDb = formationRepository.findById(formationDTO.getId()).orElse(null);
         formationDb.setTypeFormation(formationDTO.getTypeFormation());
         formationDb.setReacs(formationDTO.getReacs());
         formationDb.setSessions(formationDTO.getSessions());
@@ -135,29 +143,27 @@ public class FicheService {
     }
     //--------------Suprimmer Formation----------------------------------------//
 
-    public void deleteFormation(long id){
+    public void deleteFormation(long id) {
         formationRepository.deleteById(id);
     }
-    public void deleteFormation(Formation formation){
+
+    public void deleteFormation(Formation formation) {
         this.deleteFormation(formation.getId());
     }
 
 
-
-
-
-
     //----------------------------------------Seance-----------------------------------------------------------//
 
-    public List<Seance> getAllSeancesSeance(){
+    public List<Seance> getAllSeancesSeance() {
         return seanceRepository.findAll();
     }
 
-
-    private static SeanceDTO convertSeanceEntityToDtoSeance(Seance seance){
+    public  Optional<Seance> getSeance(final Long id){
+        return  seanceRepository.findById(id);
+    }
+    public SeanceDTO convertSeanceEntityToDtoSeance(Seance seance) {
         SeanceDTO seanceDTO = new SeanceDTO();
         seanceDTO.setId(seance.getId());
-
         seanceDTO.setDuree(seance.getDuree());
         seanceDTO.setDeroulement(seance.getDeroulement());
         seanceDTO.setSupportUse(seance.getSupportUse());
@@ -168,47 +174,57 @@ public class FicheService {
         return seanceDTO;
 
     }
-    public void saveSeance(SeanceDTO seanceDTO){
+
+    public void saveSeance(SeanceDTO seanceDTO) {
         Seance seanceDb;
-        if(null == seanceDTO.getId()){
+        if (null == seanceDTO.getId()) {
             seanceDb = new Seance();
-        }else{
+        } else {
             seanceDb = seanceRepository.findById(seanceDTO.getId()).orElse(new Seance());
         }
 
         seanceDb.setDateDuJour(seanceDTO.getDateDuJour());
         seanceDb.setDeroulement(seanceDTO.getDeroulement());
         seanceDb.setDuree(seanceDTO.getDuree());
-        // sessionDb.setFormation(sessionRepository.findById(sessionDTO.getId())).get();
-       seanceDb.setSupportUse(seanceDTO.getSupportUse());
-        // modifier l'affiche si nécessaire => si un fichier a été uploadé
+        seanceDb.setSupportUse(seanceDTO.getSupportUse());
+        seanceDb.setObjectifPeda(seanceDTO.getObjectifPeda());
+        seanceRepository.save(seanceDb);
+    }
 
-
+    public void updateSeance(SeanceDTO seanceDTO) {
+        Seance seanceDb = seanceRepository.findById(seanceDTO.getId()).orElse(null);
+        seanceDb.setDeroulement(seanceDTO.getDeroulement());
+        seanceDb.setDuree(seanceDTO.getDuree());
+        seanceDb.setSupportUse(seanceDTO.getSupportUse());
+        seanceDb.setDateDuJour(seanceDTO.getDateDuJour());
+        seanceDb.setObjectifPeda(seanceDTO.getObjectifPeda());
         seanceRepository.save(seanceDb);
     }
 
     //----------------Suprimmer Seance----------------------------------------//
 
-    public void deleteSeance(long id){
+    public void deleteSeance(long id) {
         seanceRepository.deleteById(id);
     }
-    public void deleteSeance(Seance seance){
+
+    public void deleteSeance(Seance seance) {
         this.deleteSeance(seance.getId());
     }
 
 
-
-
-
-
     //----------------------------------------Session----------------------------------------------------------//
+    public Optional<Session> getUneSession(final Long id){
+        return  sessionRepository.findById(id);
+    }
+    public List <Session> getTousSessions(){
+        return sessionRepository.findAll();
+    }
 
-
-    public void saveSession(SessionDTO sessionDTO){
+    public void saveSession(SessionDTO sessionDTO) {
         Session sessionDb;
-        if(null == sessionDTO.getId()){
+        if (null == sessionDTO.getId()) {
             sessionDb = new Session();
-        }else{
+        } else {
             sessionDb = sessionRepository.findById(sessionDTO.getId()).orElse(new Session());
         }
 
@@ -220,13 +236,9 @@ public class FicheService {
         sessionRepository.save(sessionDb);
     }
 
-    public List<SessionDTO> getAllSessionsSession(){
-        return sessionRepository.findAll()
-                .stream()
-                .map(FicheService::convertSessionEntityToDtoSession)
-                .collect(Collectors.toList());
-    }
-    private static SessionDTO convertSessionEntityToDtoSession(Session session){
+
+
+    public SessionDTO convertSessionEntityToDtoSession(Session session) {
         SessionDTO sessionDTO = new SessionDTO();
         sessionDTO.setId(session.getId());
         sessionDTO.setCentre(session.getCentre());
@@ -236,21 +248,28 @@ public class FicheService {
         return sessionDTO;
 
     }
-    public Session getSession(Long id){
+
+    public Session getSession(Long id) {
         return sessionRepository.findById(id).orElse(new Session());
     }
 
+//////---------------Update sessions ----------------------------//////////////
+public void updateUneSession(SessionDTO sessionDTO) {
+    Session sessionDb = sessionRepository.findById(sessionDTO.getId()).orElse(null);
+    sessionDb.setDateDebut(sessionDTO.getDateDebut());
+    sessionDb.setDateFin(sessionDTO.getDateFin());
+    sessionDb.setCentre(sessionDTO.getCentre());
 
-
+    sessionRepository.save(sessionDb);
+}
     //-------------Suprimmer Session----------------------------------------//
-    public void deleteSession(long id){
+    public void deleteSession(long id) {
         sessionRepository.deleteById(id);
     }
-    public void deleteSession(Session session){
+
+    public void deleteSession(Session session) {
         this.deleteSession(session.getId());
     }
 
 
-    public void findById(Long id) {
-    }
 }

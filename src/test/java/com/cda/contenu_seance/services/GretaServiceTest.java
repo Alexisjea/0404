@@ -163,13 +163,13 @@ class GretaServiceTest {
         assertTrue(sessionRepository.findById(1L).isEmpty());
 
     }
-    @Test
-    @Transactional
-    void deleteSession1()  {
-        ficheService.deleteSession(1L);
-        assertEquals(ficheService.getSession(1L));
-
-    }
+//    @Test
+//    @Transactional
+//    void deleteSession1()  {
+//        ficheService.deleteSession(1L);
+//        assertEquals(ficheService.getSession(1L));
+//
+//    }
 
     private void assertEquals(Session session) {
     }

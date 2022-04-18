@@ -10,6 +10,12 @@ public class IndexController {
     public String index() {
         return "formateur/index";
     }
+
+    @GetMapping(value = {"/dashboard"})
+    public String test() {
+        return "dashboard/index";
+    }
+
 }
 
 

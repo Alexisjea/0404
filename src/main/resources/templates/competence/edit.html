@@ -4,38 +4,34 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header-nav"/>
+<div class="shadow-lg container mb-5 bg-light">
+    <h4 class="display-4 text-center mb-4" >Editer une Compétance</h4>
+    <form action="#"
+          enctype="multipart/form-data"
+          method="post"
+          th:action="@{/Coordinateur/updateCompetence}"
+          th:name="competenceupdate"
+    th:object="${competenceDTO}">
 
-<form action="#"
-      enctype="multipart/form-data"
-      method="post"
-      th:action="@{/Coordinateur/updateCompetence}"
-      th:name="competenceupdate">
+        <input th:value="${id}" th:type="hidden" th:name="id">
 
-    <input th:value="${id}" th:type="hidden" th:name="id">
+        <div class="mb-3">
+            <label  class="form-label">Nom compétence</label>
+            <input class="form-control" th:field="*{nom}" type="text"><br/>
 
-    <div class="mb-3">
-        <label  class="form-label">Nom compétence</label>
-        <input class="form-control" th:name="nom" type="text"><br/>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Num compétence</label>
+            <input class="form-control" th:field="*{numFicheCompetence}" type="number"><br/>
 
-    </div>
-    <div class="mb-3">
-        <label  class="form-label">Num compétence</label>
-        <input class="form-control" th:name="numFicheCompetence" type="number"><br/>
+        </div>
+        <br>
 
-    </div>
-    <select class="form-select" aria-label="Default select example" name="activite">
-        <option selected>Open this select menu</option>
-        <option th:each="uneActivite :${activites}"
-                th:text="${uneActivite.activitesTypes}"
-                th:name="${uneActivite.id}"
-                th:value="${uneActivite.id}">
-
-        </option>
-        <select/><br>
-
-    <button type="submit" class="btn btn-primary">Update Competence</button>
-</form>
-
+            <div class="d-flex justify-content-center mb-4 mt-2 pb-4">
+                <button type="submit" class="btn btn-primary shadow-primary mt-4">Update Compétance</button>
+            </div>
+    </form>
+</div>
 <div th:replace="fragments/footer:: footer"/>
 </body>
 </html>

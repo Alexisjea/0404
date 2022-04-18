@@ -10,23 +10,40 @@
 
     <div class="jumbotron">
         <div class="container">
-
+            <h4 class="display-4 text-center">Ajouter une formation</h4>
+            <div class="col-md-12" align="center">
+                <br/>
+                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                    <p th:text="${successMsg}"/>
+                </div>
+            </div>
             <form action="#"
                   enctype="multipart/form-data"
                   method="post"
                   th:action="@{/listformations}"
-                  th:object="${formation}" name="formation">
+                  th:object="${formationDTO}" name="formation">
 
                 <div class="mt-5 mb-5">
-                    <label  class="form-label">Nom Formation</label>
-                    <input  th:field="*{typeFormation}" class="form-control" th:name="typeFormation">
-                   <span th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>
+                    <label class="form-label">Nom Formation</label>
+                    <input th:field="*{typeFormation}" class="form-control" th:name="typeFormation">
+
                 </div>
-
-                <button type="submit" class="btn btn-primary" th:href="@{'/formations/list'}">Enregistrer formation</button>
+                <div class="mb-5">
+                    <ul>
+                        <li class="alert alert-danger" th:each="err : ${#fields.errors('typeFormation')}"
+                            th:text="${err}"></li>
+                    </ul>
+                    <!--                     <span class="alert alert-danger" th:if="${#fields.hasErrors('typeFormation')}"th:errors="*{typeFormation}">Le type de formation est invalide</span>-->
+                </div>
+                <button type="submit" class="btn btn-primary" th:href="@{'/formations/list'}">Enregistrer formation
+                </button>
+                <br>
+                <hr>
             </form>
+            <div class="mb-5">
+                <h4 class="display-4 text-center">Formations</h4>
+            </div>
 
-            <h4 class="display-4">Formations</h4>
 
             <table class="table table-striped">
 
@@ -38,16 +55,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="formation: ${formations}">
-                    <td><span  th:utext="${formation.id}"></span></td>
-                    <td><span th:utext="${formation.typeFormation}"></span></td>
+                <tr th:each="uneFormation: ${formations}">
+                    <td><span th:utext="${uneFormation.id}"></span></td>
+                    <td><span th:utext="${uneFormation.typeFormation}"></span></td>
                     <td>
-                        <a href="#" th:href="@{'/formations/edit/'+${formation.id}}" class="btn btn-warning">Edit</a>
-                        <a href="#" th:href="@{'/formations/supr/'+${formation.id}}" class="btn btn-danger">Suprimmer</a>
+                        <a href="#" th:href="@{'/formations/edit/'+${uneFormation.id}}" class="btn btn-warning">Edit</a>
+                        <a href="#" th:href="@{'/formations/supr/'+${uneFormation.id}}"
+                           class="btn btn-danger">Suprimmer</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
+
             <hr/>
 
         </div>

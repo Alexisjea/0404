@@ -4,61 +4,64 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header-nav"/>
+<div class="container bg-light shadow-lg mt-5">
+    <h4 class="display-4 text-center mb-4">Editer une activité</h4>
+    <form action="#"
+          enctype="multipart/form-data"
+          method="post"
+          th:action="@{/traitementActivites}"
+          th:name="activite"
+          th:object="${activiteDTO}"
+         >
+        <input th:value="${id}" th:type="hidden" th:name="id">
+        <div class="mb-3">
+            <label  class="form-label">Nom activite</label>
+            <input class="form-control" type="text" th:field="*{activitesTypes}"><br/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Num ordre</label>
+            <input class="form-control" th:field="*{numOrdre}" type="text"><br/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Reac</label>
+            <input class="form-control" th:field="*{reac}" type="text"><br/>
+        </div>
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Competence</label>-->
+<!--            <input th:field="*{competences}" type="text"><br/>-->
+<!--        </div>-->
+<!--        <div class="col-2">-->
+<!--            <select class="form-select" aria-label="Default select example"  >-->
+<!--                <option  selected>Date de debut</option>-->
+<!--                <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>-->
 
-<form action="#"
-      enctype="multipart/form-data"
-      method="post"
-      th:action="@{/traitementActivites}"
-      th:name="activite"
-     >
-    <input th:value="${id}" th:type="hidden" th:name="id">
-    <div class="mb-3">
-        <label  class="form-label">Nom activite</label>
-        <input class="form-control" th:name="activitesTypes" type="text"><br/>
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Num ordre</label>
-        <input class="form-control" th:name="numOrdre" type="text"><br/>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Reac</label>
-        <input class="form-control" th:name="reac" type="text"><br/>
-    </div>
-<!--    <div class="mb-3">-->
-<!--        <label class="form-label">Competence</label>-->
-<!--        <input th:field="*{competences}" type="text"><br/>-->
-<!--    </div>-->
-<!--    <div class="col-2">-->
+
+<!--            </select>-->
 <!--        <select class="form-select" aria-label="Default select example"  >-->
 <!--            <option  selected>Date de debut</option>-->
 <!--            <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>-->
 
 
 <!--        </select>-->
-<!--    <select class="form-select" aria-label="Default select example"  >-->
-<!--        <option  selected>Date de debut</option>-->
-<!--        <option value="1"th:each="activites: ${competence}" th:text="${activites.nom}"></option>-->
+<!--            <select class="form-select" aria-label="Default select example"  >-->
+<!--                <option  selected>Date de fin</option>-->
+<!--                <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.dateFin}"></option>-->
 
 
-<!--    </select>-->
-<!--        <select class="form-select" aria-label="Default select example"  >-->
-<!--            <option  selected>Date de fin</option>-->
-<!--            <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.dateFin}"></option>-->
+<!--            </select>-->
+<!--                    <select class="form-select" aria-label="Default select example"  >-->
+<!--                        <option  selected>Open this select menu</option>-->
+<!--                        <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.}"></option>-->
 
 
-<!--        </select>-->
-<!--                <select class="form-select" aria-label="Default select example"  >-->
-<!--                    <option  selected>Open this select menu</option>-->
-<!--                    <option value="1"th:each="sessiongreta: ${sessions}" th:text="${sessiongreta.}"></option>-->
+<!--                    </select>-->
+<!--        </div>-->
+        <div class="d-flex justify-content-center mb-4 mt-2 pb-4">
+            <button type="submit" class="btn btn-primary shadow-primary mt-4">Update activité</button>
+        </div>
 
-
-<!--                </select>-->
-<!--    </div>-->
-
-    <button type="submit" class="btn btn-primary">Enregistrer Activité</button>
-</form>
-
+    </form>
+</div>
 <div th:replace="fragments/footer:: footer"/>
 </body>
 </html>

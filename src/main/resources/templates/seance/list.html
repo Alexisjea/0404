@@ -10,27 +10,62 @@
 
     <div class="jumbotron">
         <div class="container">
-<!--            <form enctype="multipart/form-data"-->
-<!--                  method="post"-->
-<!--                  th:action="@{/listseances}"-->
-<!--                  th:object="${}" name="seances">-->
-<!--                <div class="mb-3">-->
-<!--                    <label  class="form-label">Nom support</label>-->
-<!--                    <input  th:field="*{supportUse}" class="form-control"    th:name="supportUse">-->
-<!--                    <div id="" class="form-text">We'll never share your email with anyone else.</div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;        <div class="mb-3">&ndash;&gt;-->
-<!--                &lt;!&ndash;            <label for="exampleInputPassword1" class="form-label">Password</label>&ndash;&gt;-->
-<!--                &lt;!&ndash;            <input type="password" class="form-control" id="exampleInputPassword1">&ndash;&gt;-->
-<!--                &lt;!&ndash;        </div>&ndash;&gt;-->
-<!--                <div class="mb-3 form-check">-->
-<!--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
-<!--                </div>-->
-<!--                <button type="submit" class="btn btn-primary" th:href="@{'/seance/list'}">Enregistrer seance</button>-->
-<!--            </form>-->
-            <h4 class="display-4">Seances</h4>
+            <h4 class="display-4 text-center">Ajouter une Seance</h4>
+            <div class="col-md-12" align="center">
+                <br />
+                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                    <p  th:text="${successMsg}" />
+                </div>
+            </div>
+            <form enctype="multipart/form-data"
+                  method="post"
+                  th:action="@{/addseance}"
+                  th:object="${seanceDTO}" name="seances">
 
+                <div class="mb-3">
+                    <label  class="form-label">Date du jour</label>
+                    <input  th:field="*{dateDuJour}" class="form-control" th:name="dateDuJour" type="date">
+                </div>
+                <div class="mb-5">
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('dateDuJour')}"th:errors="*{dateDuJour}"></p>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Duree</label>
+                    <input  th:field="*{duree}" class="form-control" th:name="duree">
+                </div>
+                <div class="mb-5">
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('duree')}"th:errors="*{duree}"></p>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Nom support</label>
+                    <input  th:field="*{supportUse}" class="form-control" th:name="supportUse">
+                </div>
+                <div class="mb-5">
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('supportUse')}"th:errors="*{supportUse}"></p>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Déroulement</label>
+                    <input  th:field="*{deroulement}" class="form-control" th:name="deroulement">
+                </div>
+                <div class="mb-5">
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('deroulement')}"th:errors="*{deroulement}"></p>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Objectif pédagogique</label>
+                    <input  th:field="*{objectifPeda}" class="form-control" th:name="objectifPeda">
+                </div>
+                <div class="mb-5">
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('objectifPeda')}"th:errors="*{objectifPeda}"></p>
+                </div>
+                <!--        <div class="mb-3">-->
+                <!--            <label for="exampleInputPassword1" class="form-label">Password</label>-->
+                <!--            <input type="password" class="form-control" id="exampleInputPassword1">-->
+                <!--        </div>-->
+                <button type="submit" class="btn btn-primary" th:href="@{'/seance/list'}">Enregistrer seance</button><br><hr>
+            </form>
+            <div class="mb-5">
+                <h4 class="display-4 text-center">Seances</h4>
+            </div>
             <table class="table table-striped">
 
                 <thead>

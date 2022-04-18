@@ -5,6 +5,7 @@ import com.cda.contenu_seance.dto.FormateurDTO;
 import com.cda.contenu_seance.dto.IntervenantDTO;
 import com.cda.contenu_seance.model.Activite;
 import com.cda.contenu_seance.model.Formateur;
+import com.cda.contenu_seance.model.Formation;
 import com.cda.contenu_seance.model.Intervenant;
 import com.cda.contenu_seance.repositories.FormateurRepository;
 import com.cda.contenu_seance.repositories.IntervenantRepository;
@@ -45,12 +46,19 @@ public class IntervenantService {
                 .map(IntervenantService::convertIntervenantEntityToDto)
                 .collect(Collectors.toList());
     }
+public List<Intervenant> getAllIntervenants(){
+    return intervenantRepository.findAll();
+}
 
-
-    public Intervenant getIntervenant(Long id) {
-        return intervenantRepository.findById(id).orElse(new Intervenant() {
-        });
-    }
+//    public void saveIntervenant(IntervenantDTO intervenantDTO){
+//        Intervenant intervenantDb;
+//        if(null == intervenantDTO.getId()){
+//            intervenantDb = new Intervenant() {
+//            }else{
+//                intervenantDb = intervenantRepository.findById(intervenantDTO.getId()).orElse(new Intervenant());
+//            }
+//        }
+//    }
 
 
     //-------------------------Supprimer Intervenant------------------------//

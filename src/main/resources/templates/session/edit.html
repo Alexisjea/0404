@@ -4,33 +4,29 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header-nav"/>
+    <div class="container bg-light shadow-lg mt-5">
+        <h4 class="display-4 text-center mb-4" >Editer une session</h4>
+        <form action="#"
+              enctype="multipart/form-data"
+              method="post"
+              th:action="@{/session/edit}"
+              th:name="sessionupdate"
+              th:object="${sessionsDTO}">
+            <div class="mb-3">
+                <input th:value="*{id}" type="hidden" th:name="id">
+                <label class="form-label">Date debut</label>
+                <input th:field="*{dateDebut}" type="date" class="form-control"><br/>
 
-<form action="#"
-      enctype="multipart/form-data"
-      method="post"
-      th:action="@{/session/edit}"
-      th:name="sessionupdate">
-    <div class="mb-3">
-        <input th:value="*{id}" type="hidden" th:name="id">
-        <label class="form-label">Date debut</label>
-        <input th:name="dateDebut" type="date" class="form-control"><br/>
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Date fin</label>
+                <input th:field="*{dateFin}" type="date" class="form-control"><br/>
+            </div>
+            <div class="d-flex justify-content-center mb-4 mt-2 pb-4">
+                <button type="submit" class="btn btn-primary shadow-primary mt-4">Update Session</button>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Date fin</label>
-        <input th:name="dateFin" type="date" class="form-control"><br/>
-    </div>
-
-    <!--    <div class="mb-3 form-check"> <option th:each="sessiongreta: ${sessions}"-->
-    <!--                                          th:value="${sessiongreta.id}"-->
-    <!--                                          th:text="${sessiongreta.id}+' '+${sessiongreta.id}"-->
-    <!--                                          th:selected="${sessiongreta.id} == *{centre.id}">-->
-    <!--        Prénom Nom-->
-    <!--    </option>-->
-    <!--    </div>-->
-    <button type="submit" class="btn btn-primary">Update Session</button>
-</form>
-
 <div th:replace="fragments/footer:: footer"/>
 </body>
 </html>
