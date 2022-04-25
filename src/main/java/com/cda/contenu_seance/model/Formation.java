@@ -8,6 +8,12 @@ package com.cda.contenu_seance.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -21,7 +27,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 
-public class Formation {
+public class Formation  {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,4 +47,5 @@ public class Formation {
         this.typeFormation = typeFormation;
 
     }
+
 }

@@ -2,6 +2,7 @@ package com.cda.contenu_seance.controller;
 
 import com.cda.contenu_seance.dto.CentreDTO;
 import com.cda.contenu_seance.dto.FormationDTO;
+import com.cda.contenu_seance.model.Centre;
 import com.cda.contenu_seance.model.Formation;
 import com.cda.contenu_seance.services.FicheService;
 import com.cda.contenu_seance.services.ReferentielService;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,5 +83,19 @@ public class FormationController {
         ficheService.updateFormation(formationDTO);
         model.addAttribute("successMsg", "La formation a été modifiée avec succès");
         return "formations/list";
+    }
+    ////// Generate excel //////
+    @GetMapping("/formation/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=formation.xlsx";
+        response.setHeader(headerKey , headerValue);
+        List <Formation> formationList = ficheService.allFormation();
+        List <Centre> centreList = ficheService.getAllCentresCentre();
+        FormationExcelExporter exelExporter = new FormationExcelExporter(formationList,centreList);
+        exelExporter.export(response);
+
     }
 }

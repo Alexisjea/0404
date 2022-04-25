@@ -11,9 +11,11 @@
     <div class="jumbotron">
         <div class="container">
             <h4 class="display-4 text-center">Ajouter une formation</h4>
+            <a th:href="@{/formation/export/excel}" class="btn btn-primary">Export to Excel</a>
             <div class="col-md-12" align="center">
                 <br/>
-                <div th:if="${successMsg}" class="alert alert-success col-md-8" role="alert">
+                <div th:if="${successMsg}" class="alert alert-success col-md-8 " role="alert">
+
                     <p th:text="${successMsg}"/>
                 </div>
             </div>

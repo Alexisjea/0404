@@ -10,6 +10,7 @@ import com.cda.contenu_seance.model.Seance;
 import com.cda.contenu_seance.model.Session;
 import com.cda.contenu_seance.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -114,6 +115,9 @@ public class FicheService {
 
     public Optional<Formation> getFormationById(final Long id) {
         return formationRepository.findById(id);
+    }
+    public List<Formation> allFormation(){
+        return formationRepository.findAll(Sort.by("typeFormation").ascending());
     }
 
     public List<Formation> getAllFormationsFormation() {
